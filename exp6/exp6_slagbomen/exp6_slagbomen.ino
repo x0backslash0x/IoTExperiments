@@ -3,6 +3,7 @@
 
 Servo servoMotor;
 const int servoPin = 10; // pin D10 on an Arduino Nano board
+const int degrees = 180;
 
 void RotateServo(Servo servo, int maxRotation, bool direction) {
   if (direction) {
@@ -30,5 +31,5 @@ void setup() {
 
 void loop() {
   RotateServo(servoMotor, 180, true); // roates from 0 degrees to 180 degrees
-  RotateServo(servoMotor, 180, false); // roates from 180 degrees to 0 degrees
+  RotateServo(servoMotor, degrees, false); // roates from 180 degrees to 0 degrees
 }
