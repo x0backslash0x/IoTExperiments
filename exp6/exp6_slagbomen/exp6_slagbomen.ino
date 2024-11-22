@@ -10,6 +10,7 @@ Servo servoMotor;
 const int servoPin = 10; // pin D10 on an Arduino Nano board
 const int degrees = 180;
 const int SW = 5; // pin D5 on an Arduino Nano board
+Action previousAction = CLOSE;
 
 void RotateServo(Servo servo, int maxRotation, bool direction) {
   if (direction) {
@@ -38,7 +39,15 @@ void setup() {
 
 void loop() {
   if (digitalRead(SW) == 0) {
-    RotateServo(servoMotor, 180, OPEN); // rotates counter-clockwise
-    RotateServo(servoMotor, degrees, CLOSE); // rotates clockwise
+    RotateServo(servoMotor, degrees, previousAction);
+
+    switch (previousAction) {
+      case CLOSE:
+        previousAction = OPEN; // rotate counter-clockwise
+        break;
+      case OPEN:
+        previousAction = CLOSE; // rotate clockwise
+        break;
+    }
   }
 }
