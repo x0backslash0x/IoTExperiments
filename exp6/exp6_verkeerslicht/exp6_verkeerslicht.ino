@@ -28,11 +28,11 @@ LightState update_state(long current_time, long previous_time, LightState curren
   return current_state;
 }
 
-void set_traffic_light(LightState state, int led_pins[3]){
+void set_traffic_light(LightState state, int led_pins[3], bool reverse=false){
   for (int i = 0; i < 3; i++) digitalWrite(led_pins[i], LOW);
-  if (state == RED) digitalWrite(led_pins[RED], HIGH);
+  if (state == RED) digitalWrite(led_pins[reverse? GREEN : RED], HIGH);
   if (state == ORANGE) digitalWrite(led_pins[ORANGE], HIGH);
-  if (state == GREEN) digitalWrite(led_pins[GREEN], HIGH);
+  if (state == GREEN) digitalWrite(led_pins[reverse? RED : GREEN], HIGH);
 } 
 
 void setup(){
@@ -52,7 +52,7 @@ void loop(){
     Serial.print("State updated to: ");
     Serial.println(current_state);
     set_traffic_light(current_state, traffic_light1);
-    set_traffic_light(current_state, traffic_light2);
+    set_traffic_light(current_state, traffic_light2, true);
     previous_state = current_state;
     previous_time = current_time;
   }
