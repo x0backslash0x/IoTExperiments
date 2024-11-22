@@ -28,12 +28,12 @@ void setup() {
   Serial.begin(115200);
   servoMotor.attach(servoPin); // attaches the servo to pin D10
   pinMode(SW, INPUT);
-  int  pos = 0;
+  int pos = 0;
 }
 
 void loop() {
   if (digitalRead(SW) == 0) {
-    RotateServo(servoMotor, 180, true); // roates from 0 degrees to 180 degrees
-    RotateServo(servoMotor, degrees, false); // roates from 180 degrees to 0 degrees
+    RotateServo(servoMotor, 180, true); // rotates from 0 degrees to 180 degrees
+    RotateServo(servoMotor, degrees, false); // rotates from 180 degrees to 0 degrees
   }
 }
