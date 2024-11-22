@@ -13,7 +13,8 @@ enum LightState {
  * TL2 ORANJE -> pin 14
  * TL2 GROEN -> pin 27
 */
-int traffic_light[3] = {25, 33, 32};
+int traffic_light1[3] = {25, 33, 32};
+int traffic_light2[3] = {27, 14, 26};
 
 
 LightState update_state(long current_time, long previous_time, LightState current_state){
@@ -35,7 +36,8 @@ void set_traffic_light(LightState state, int led_pins[3]){
 } 
 
 void setup(){
-  for (int i = 0; i < 3; i++) pinMode(traffic_light[i], OUTPUT);
+  for (int i = 0; i < 3; i++) pinMode(traffic_light1[i], OUTPUT);
+  for (int i = 0; i < 3; i++) pinMode(traffic_light2[i], OUTPUT);
   Serial.begin(9600);
 }
 
@@ -49,7 +51,8 @@ void loop(){
   if (current_state != previous_state){
     Serial.print("State updated to: ");
     Serial.println(current_state);
-    set_traffic_light(current_state, traffic_light);
+    set_traffic_light(current_state, traffic_light1);
+    set_traffic_light(current_state, traffic_light2);
     previous_state = current_state;
     previous_time = current_time;
   }
