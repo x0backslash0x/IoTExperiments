@@ -16,6 +16,9 @@ enum LightState {
 int traffic_light1[3] = {25, 33, 32};
 int traffic_light2[3] = {27, 14, 26};
 
+const int SW1 = 36;
+int SchakelaarStatus_SW1 = 0;
+
 
 LightState update_state(long current_time, long previous_time, LightState current_state){
   const long GREEN_PERIOD = 4000;
@@ -42,17 +45,42 @@ void flash_lights(int led_pins[3], bool signal = false) {
 void setup(){
   for (int i = 0; i < 3; i++) pinMode(traffic_light1[i], OUTPUT);
   for (int i = 0; i < 3; i++) pinMode(traffic_light2[i], OUTPUT);
+  pinMode(SW1, INPUT);
   Serial.begin(9600);
 }
 
 long current_time, previous_time = millis();
 LightState current_state = GREEN;
 LightState previous_state = RED;
+bool blink = false;
+bool blinkMode = false;
+long blink_time = 0;
+long blink_time_elapse = 0;
+long blink_time_duration = 5000;
+int frequency = 500; // 2Hz
 
-void loop(){
+void loop() {
+  SchakelaarStatus_SW1 = digitalRead(SW1);
+  blink_time_elapse = millis() - blink_time;
+
+  if (SchakelaarStatus_SW1 == 1) {
+    blinkMode = true;
+    blink_time = millis();
+  }
+
   current_time = millis();
   current_state = update_state(current_time, previous_time, current_state);
-  if (current_state != previous_state){
+  if (blinkMode == true && blink_time_elapse <= blink_time_duration) {
+    delay(frequency);
+    if (blink) {
+      blink = false;
+    } else {
+      blink = -true;
+    }
+    flash_lights(traffic_light1, blink);
+    flash_lights(traffic_light2, blink);
+  }
+  else if (current_state != previous_state){
     Serial.print("State updated to: ");
     Serial.println(current_state);
     set_traffic_light(current_state, traffic_light1);
