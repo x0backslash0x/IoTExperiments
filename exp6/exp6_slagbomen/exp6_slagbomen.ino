@@ -38,7 +38,7 @@ void setup() {
 
 void loop() {
   if (digitalRead(SW) == 0) {
-    RotateServo(servoMotor, 180, OPEN); // rotates from 0 degrees to 180 degrees
-    RotateServo(servoMotor, degrees, CLOSE); // rotates from 180 degrees to 0 degrees
+    RotateServo(servoMotor, 180, OPEN); // rotates counter-clockwise
+    RotateServo(servoMotor, degrees, CLOSE); // rotates clockwise
   }
 }
