@@ -35,6 +35,10 @@ void set_traffic_light(LightState state, int led_pins[3], bool reverse=false){
   if (state == GREEN) digitalWrite(led_pins[reverse? RED : GREEN], HIGH);
 } 
 
+void flash_lights(int led_pins[3], bool signal = false) {
+  for (int i = 0; i < 3; i++) digitalWrite(led_pins[i], signal? HIGH : LOW);
+}
+
 void setup(){
   for (int i = 0; i < 3; i++) pinMode(traffic_light1[i], OUTPUT);
   for (int i = 0; i < 3; i++) pinMode(traffic_light2[i], OUTPUT);
