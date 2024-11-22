@@ -4,6 +4,15 @@ enum LightState {
   RED
 };
 
+/*
+ * TL1 ROOD -> pin 32
+ * TL1 ORANJE -> pin 33
+ * TL1 GROEN -> pin 25
+ *
+ * TL2 ROOD -> pin 26
+ * TL2 ORANJE -> pin 14
+ * TL2 GROEN -> pin 27
+*/
 int traffic_light[3] = {25, 33, 32};
 
 
