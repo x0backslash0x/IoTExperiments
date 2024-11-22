@@ -1,6 +1,11 @@
 #include <Arduino.h> // use of serial.print
 #include <Servo.h> // working with servomotors
 
+enum Action {
+  CLOSE, // 0
+  OPEN // 1
+};
+
 Servo servoMotor;
 const int servoPin = 10; // pin D10 on an Arduino Nano board
 const int degrees = 180;
@@ -33,7 +38,7 @@ void setup() {
 
 void loop() {
   if (digitalRead(SW) == 0) {
-    RotateServo(servoMotor, 180, true); // rotates from 0 degrees to 180 degrees
-    RotateServo(servoMotor, degrees, false); // rotates from 180 degrees to 0 degrees
+    RotateServo(servoMotor, 180, OPEN); // rotates from 0 degrees to 180 degrees
+    RotateServo(servoMotor, degrees, CLOSE); // rotates from 180 degrees to 0 degrees
   }
 }
